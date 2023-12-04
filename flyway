@@ -3,3 +3,27 @@ flyway info - current state of my db migration
 flyway validate - check for errors or 
 flyway baseline - checks for the tables or colomns which already exist or not
 flyway rapair - incase of migration failure
+
+note: we cant modify the exisiting versioned script file.
+
+undo:
+------
+suppose there are two files if you perform the migrate it simply ignores the undo file and proceed with other script files, if you perform flyway undo it executes the undo file
+V1_0__create_book_table.sql
+U1_0__create_book_table.sql
+
+the output be like after undo
+> flyway info
+Flyway 10.1.0 by Redgate
+Database: jdbc:h2:file:flyway.db (H2 1.3)
+> flyway info
+Flyway 10.1.0 by Redgate
+Database: jdbc:h2:file:flyway.db (H2 1.3)
++------------+---------+-------------------+-------------+------------------------+------------+----------+
+| Category   | Version | Description       | Type        | Installed on           | State      | Undoable |
++------------+---------+-------------------+---+---------+------------------------+-----------------------+
+| Versioned  | 1.0     | create book table | SQL         | 2023-12-04 13:58:41    |  undone    | Yes      |
+| undo       | 1.0     | create book table | UNDO_SQL    | 2023-12-04 14:00:00    |  Undone    |          |
+| Versioned  | 1.0     | create book table | SQL         |                        |  Pending   | Yes      |
++------------+---------+-------------------+-------------+------------------------+------------+----------+
+
