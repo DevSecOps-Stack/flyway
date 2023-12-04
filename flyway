@@ -1,1 +1,5 @@
-
+flyway clean
+flyway info - current state of my db migration
+flyway validate - check for errors or 
+flyway baseline - checks for the tables or colomns which already exist or not
+flyway rapair - incase of migration failure
